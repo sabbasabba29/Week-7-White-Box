@@ -106,7 +106,71 @@ describe('states', (): void => {
     });
 
     describe('equals()', (): void => {
-      it.todo('should do something');
+      
+      it('should return 2 when 1 + 1 equals is pressed', (): void => {
+        enteringSecondNumberState.data.firstBuffer = '1';
+        enteringSecondNumberState.data.firstOperator = OperatorKeys.PLUS;
+        enteringSecondNumberState.data.secondBuffer = '1';
+      
+        jest.spyOn(enteringSecondNumberState, 'add').mockReturnValue(2);
+      
+        enteringSecondNumberState.equals();
+      
+        expect(enteringSecondNumberState.data.firstBuffer).toEqual('2');
+        expect(enteringSecondNumberState.data.secondBuffer).toEqual('');
+        expect(enteringSecondNumberState.add).toHaveBeenCalledWith(1, 1);
+      });
+
+      it('should return 2 when 5 - 3 equals is pressed', (): void => {
+        enteringSecondNumberState.data.firstBuffer = '5';
+        enteringSecondNumberState.data.firstOperator = OperatorKeys.MINUS;
+        enteringSecondNumberState.data.secondBuffer = '3';
+      
+        jest.spyOn(enteringSecondNumberState, 'subtract').mockReturnValue(2);
+      
+        enteringSecondNumberState.equals();
+      
+        expect(enteringSecondNumberState.data.firstBuffer).toEqual('2');
+        expect(enteringSecondNumberState.data.secondBuffer).toEqual('');
+        expect(enteringSecondNumberState.subtract).toHaveBeenCalledWith(5, 3);
+      });
+
+      it('should return 8 when 4 * 2 equals is pressed', (): void => {
+        enteringSecondNumberState.data.firstBuffer = '4';
+        enteringSecondNumberState.data.firstOperator = OperatorKeys.MULT;
+        enteringSecondNumberState.data.secondBuffer = '2';
+      
+        jest.spyOn(enteringSecondNumberState, 'multiply').mockReturnValue(8);
+      
+        enteringSecondNumberState.equals();
+      
+        expect(enteringSecondNumberState.data.firstBuffer).toEqual('8');
+        expect(enteringSecondNumberState.data.secondBuffer).toEqual('');
+        expect(enteringSecondNumberState.multiply).toHaveBeenCalledWith(4, 2);
+      });
+
+      it('should return 2 when 4 / 2 equals is pressed', (): void => {
+        enteringSecondNumberState.data.firstBuffer = '4';
+        enteringSecondNumberState.data.firstOperator = OperatorKeys.DIV;
+        enteringSecondNumberState.data.secondBuffer = '2';
+      
+        jest.spyOn(enteringSecondNumberState, 'multiply').mockReturnValue(2);
+      
+        enteringSecondNumberState.equals();
+      
+        expect(enteringSecondNumberState.data.firstBuffer).toEqual('2');
+        expect(enteringSecondNumberState.data.secondBuffer).toEqual('');
+        expect(enteringSecondNumberState.multiply).toHaveBeenCalledWith(4, 2);
+      });
+      
+      
+      afterEach((): void => {
+        jest.restoreAllMocks();
+        enteringSecondNumberState = null;
+        calculatorModel = null;
+        stateData = null;
+      });
+      
     });
 
     describe('clear()', (): void => {
