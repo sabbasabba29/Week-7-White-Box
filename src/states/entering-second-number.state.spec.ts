@@ -81,7 +81,7 @@ describe('states', (): void => {
     });
 
     describe('binaryOperator()', (): void => {
-      it('should do something');
+      it.todo('should do something');
     });
 
     describe('equals()', (): void => {
