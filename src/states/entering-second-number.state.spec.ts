@@ -1,5 +1,5 @@
 
-import { NumericKeys } from '../enums';
+import { NumericKeys, OperatorKeys } from '../enums';
 import { ICalculatorState, IContext, IStateData } from '../interfaces';
 import { CalculatorModel } from '../models/calculator.model';
 import { StateData } from '../models/state-data.model';
@@ -81,7 +81,28 @@ describe('states', (): void => {
     });
 
     describe('binaryOperator()', (): void => {
-      it.todo('should do something');
+
+      it('should convert to 1+1 to 2+ when the next operator is +', (): void => {
+        enteringSecondNumberState.data.firstBuffer = '1';
+        enteringSecondNumberState.data.firstOperator = OperatorKeys.PLUS;
+        enteringSecondNumberState.data.secondBuffer = '1';
+
+        jest.spyOn(enteringSecondNumberState, 'add').mockReturnValue(2);
+
+        enteringSecondNumberState.binaryOperator(OperatorKeys.PLUS);
+        expect(enteringSecondNumberState.data.firstBuffer).toEqual('2');
+        expect(enteringSecondNumberState.data.firstOperator).toEqual(OperatorKeys.PLUS);
+        expect(enteringSecondNumberState.data.secondBuffer).toEqual('');
+        expect(enteringSecondNumberState.add).toHaveBeenCalledWith(1, 1);
+      });
+
+
+      afterEach((): void => {
+        jest.restoreAllMocks();
+        enteringSecondNumberState = null;
+        calculatorModel = null;
+        stateData = null;
+      });
     });
 
     describe('equals()', (): void => {

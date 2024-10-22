@@ -141,7 +141,6 @@ it('should convert to 1+1 to 2+ when the next operator is +', (): void => {
   
   jest.spyOn(enteringSecondNumberState, 'add').mockReturnValue(2);
 
-
 });
 ```
 
